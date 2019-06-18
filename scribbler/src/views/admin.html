@@ -1,0 +1,64 @@
+
+<!-- begin page content - determine container type 'container' or 'container-fluid'===full width -->
+<main role="main" class="container-fluid">
+<div style='margin-top: 20px;'><!-- dummy empty --></div>
+<!-- first row with three columns - and 3 empty columns to space/align content  -->
+<div class='row' style='padding: 35px;'><div class='col text-center'><h1>Admin</h1></div></div>
+<div class='row' style='margin-left: 20px;'>
+<div class='card col-3' style='padding: 35px;'>
+
+<form method='POST' action='#'>
+	<div class="form-group">
+		<label for="exampleFormControlSelect1">Select a theme for your Scribbler</label>
+		<select name = "theme"
+			class="form-control" id="exampleFormControlSelect1">
+			{{tselected}} <!-- inject the selected theme using Jinja2 -->
+			<option value = "cerulean">cerulean</option>
+			<option value = "darkly" >darkly</option>
+			<option value = "litera" >litera</option>
+			<option value = "materia" >materia</option>
+			<option value = "sandstone" >sandstone</option>
+			<option value = "slate" >slate</option>
+			<option value = "superhero" >superhero</option>
+			<option value = "cosmo" >cosmo</option>
+			<option value = "flatly" >flatly</option>
+			<option value = "lumen" >lumen</option>
+			<option value = "minty" >minty</option>
+			<option value = "simplex" >simplex</option>
+			<option value = "solar" >solar</option>
+			<option value = "united" >united</option>
+			<option value = "cyborg" >cyborg</option>
+			<option value = "journal" >journal</option>
+			<option value = "lux" >lux</option>
+			<option value = "pulse" >pulse</option>
+			<option value = "sketchy" >sketchy</option>
+			<option value = "yeti" >yeti</option>
+		</select>
+		<br />
+		<input class="btn btn-primary" type="submit" value="Use this theme" name='submit'>
+	</div>
+</form>
+</div>
+<div class='col-1'style='padding: 35px;'><!-- empty dummy colum --></div>
+<div class='card col-3' style='padding: 35px;'><!-- ready fo radmin data --></div>
+<div class='col-1' style='padding: 35px;'><!-- empty dummy colum --></div>
+<div class='card col-3' style='padding: 35px;'><!-- ready fo radmin data --></div>
+<div class='col-1' style='padding: 50px;'><!-- empty dummy colum --></div>
+</div>
+<div style='margin-top: 80px;'><!-- dummy empty --></div>
+<!-- second row with three columns - and 3 empty columns to space/align content -->
+<div class='row' style='margin-left: 20px;'>
+<div class='card col-3' style='padding: 35px;'><!-- ready fo radmin data --></div>
+<div class='col-1' style='padding: 35px;'><!-- empty dummy colum --></div>
+<div class='card col-3' style='padding: 35px;'><!-- ready fo radmin data --></div>
+<div class='col-1' style='padding: 35px;'><!-- empty dummy colum --></div>
+<div class='card col-3' style='padding: 35px;'><!-- ready fo radmin data --></div>
+<div class='col-1' style='padding: 35px;'><!-- empty dummy colum --></div>
+</div>
+
+
+
+<div style='margin-top: 80px;'>
+	<!-- dummy empty -->
+</div>
+</main>

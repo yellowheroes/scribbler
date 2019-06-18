@@ -1,0 +1,158 @@
+<div style='height: 500;'>
+	<textarea id="editor" name="editor" style='height: 400px;'></textarea>
+</div>
+<script>
+	var editor = new Jodit('#editor', {
+		height : 500
+	});
+	editor.value = '{{tbody}}';
+</script>
+
+<div style='margin-top: 30px;'>
+	<!-- Dummy -->
+</div>
+
+<!-- alert when article saved -->
+<!--Our div is hidden by default-->
+        <div id="message" style="display:none;">Successfully saved your article</div>
+<!-- alert when article saved -->
+
+<!--  ************************ start tag manager *********************** -->
+<form method="POST">
+	<div class="form-group">
+		<label>Title</label><br /> <input type="text" name="title" id="title"
+			placeholder="enter title" value="{{ttitle}}" class="form-control" />
+	</div>
+	<div class="form-group">
+		<label>Add Tags:</label><br /> <input type="text" name="tags"
+			value="" placeholder="enter tags"
+			class="tm-input form-control tm-input-info" />
+	</div>
+	<div class='row'>
+		<div class="form-group col-1">
+			<button type='submit' name='save' id='save' value=''
+				class='btn btn-primary' style='margin-left: 0px;'>Save
+			</button>
+		</div>
+		<div class="form-group col-10 text-right">
+			<a class="btn btn-primary" style='margin: 0px auto;' href="/"
+				role="button">Close Editor</a>
+		</div>
+	</div>
+</form>
+
+<!--
+use the following script to activate tags manager.
+
+We store the list with all user-set tags on form submission in database,
+i.e. when user hits 'Save' in view-page /editor.
+
+The jQuery function to retrieve the list: $(".tm-input").tagsManager('tags');
+We then AJAX POST the tag-list together with article title 
+(see code block 'Posting Content and Tags' below)
+
+We set option 'prefilled', so that when user is editing an existing article,
+the tags related to the existing article are automatically generated.
+The JQuery function to use option 'prefilled':
+jQuery(".tm-input").tagsManager({
+        prefilled: ["Pisa", "Rome"]
+        });
+We insert the existing article's tags by inserting them using a template placeholder {{ttags}}
+the value of this placeholder(tags) is injected in app.py.
+-->
+
+<script type="text/javascript">
+	$(".tm-input").tagsManager({
+		prefilled: {{ttags}}
+	});
+</script>
+
+<!--
+use this script if you want each tag, when entered, to be sent by POST
+<script>
+$(".tm-input").tagsManager({
+    //AjaxPush: '/ajax/countries/push', // the script that processes the data
+    AjaxPushAllTags: true // turn on Ajax Push for each new tag
+    //AjaxPushParameters: { 'authToken': 'foobar' } // some params you want to send along
+});
+</script>
+-->
+
+<!--  ************************ end tag manager *********************** -->
+
+
+<!-- NEW posting content, title and tags through AJAX -->
+<script>
+	$(document).ready(function() {
+		$("#save").click(function() {
+			event.preventDefault(); // do NOT POST the form and refresh page
+			var content = editor.getEditorValue(); // get article body html content
+			var title = $('#title').val();
+			var tags = $(".tm-input").tagsManager('tags'); // get the list of all tags entered
+			$.ajax({
+				async : true,
+				type : "POST",
+				data : {
+					content : content,	// send article body html content by POST
+					title: title,		// send article-title by POST
+					tags : tags			// send related tags by POST
+				},
+				success : function(result) {
+					var url = (new URL(window.location.href)).toString();
+					var urlparts = url.split("/"); // urlparts is an array: urlparts[3] == view, urlparts[4] == article_id (if exists)
+					
+					//alert('Successfully saved your article...' + urlparts[4]);
+					alert('Successfully saved your article...');
+					//console.log("result" + result);
+					
+					// if new article (i.e. no article-id in url), 
+					// then go back to comments list as it is first time article saved.
+					// Otherwise stay in '/editor' and work on existing article with article-id.
+					// User can save article multiple times in '/editor' view, as existing article_id will
+					// be used on every cycle.
+					// urlparts[4] == article-id or undefined (when new article)
+					if (urlparts[4] === undefined) {
+					window.location.href = "/comments" // redirect to /comments list
+					}
+					//document.getElementById('editor').innerHTML = result;
+					//document.getElementById('editor').innerHTML = 'Hey <strong>Thanks!</strong>';
+					
+				},
+				error : function(error) {
+				}
+			})
+		})
+	})
+</script>
+<!-- NEW posting content, title and tags through AJAX -->
+
+<!-- User clicked 'Close File' button
+Send EditorModel() a 'close'=='true' flag, so it
+saves blog-article contents and closes the article-session (clear SQLite :memory:)
+finally, render an empty editor window so user can create/edit a new article -->
+<script>
+	$(document).ready(function() {
+		$("#close").click(function() {
+			event.preventDefault(); // do NOT POST the form
+			var close = 'true' // user wants to close the current article, i.e. save and close, and render an empty editor.
+			var content = editor.getEditorValue(); // get editor html content
+			var title = $('#title').val();
+			var tags = $(".tm-input").tagsManager('tags'); // get the list of all tags entered
+			$.ajax({
+				//url : '',
+				type : "POST",
+				data : {
+					content : content,
+					title: title,
+					tags : tags,
+					close : close		// send editor_model 'close' flag by POST
+				},
+				success : function(result) {
+					console.log("result" + result)
+				},
+				error : function(error) {
+				}
+			})
+		})
+	})
+</script>

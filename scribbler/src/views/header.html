@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Scribbler</title>
+<!-- CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+	integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0="
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Montserrat:400">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/{{tbootswatch_theme}}/bootstrap.min.css">
+
+<!-- Libraries - jQuery, Popper.js, Bootstrap.js -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	crossorigin="anonymous"></script>
+
+<!-- Jodit html editor -->
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.js"></script>
+
+<!-- tag manager: tag functionality to our 'blog' -->
+<script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.js"></script>
+<link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.css">
+
+<!-- turn off repeated requests for favicon.ico 
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+-->
+
+<!-- static files: i.e. files located in our project folder /static/css/ or static/js/ or static/images/
+<link rel="stylesheet"
+	href="/static/css/tagit.css">
+	<link rel="stylesheet"
+	href="/static/css/test.css">
+-->
+<link rel="icon" href="/static/images/favicon-32x32.png">
+</head>
+
+<body>
+	<header>
+		<!--  <nav class="navbar navbar-expand-lg navbar-light bg-light"> -->
+		<nav class="navbar navbar-expand-lg bg-dark">
+			<a class="navbar-brand" href="/">{{tapp_name}}</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon">menu</span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link" {{tactive_home}} href="/">Home
+							<span class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" {{tactive_comments}} href="/comments">Comments</a></li>
+					<li class="nav-item"><a class="nav-link" {{tactive_editor}} href="/editor">Editor</a></li>
+					<li class="nav-item"><a class="nav-link" {{tactive_admin}} href="/admin">Admin</a></li>
+				</ul>
+				<form method='POST' action="/search" class="form-inline my-2 my-lg-0">
+					<input name='search' class="form-control mr-sm-2" type="search"
+						placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				</form>
+			</div>
+			<div style='margin-left:30px; font-size: 0.5em;'>
+			<a href="/shutdown">shut down server</a>
+			</div>
+		</nav>
+	</header>
